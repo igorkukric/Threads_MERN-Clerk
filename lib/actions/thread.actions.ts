@@ -1,3 +1,5 @@
+"use server"
+
 import { revalidatePath } from "next/cache";
 import Thread from "../models/thread.model";
 import User from "../models/user.model";
@@ -13,6 +15,7 @@ interface Params {
 
 
 export async function createThread({text, author, communityId, path}: Params) {
+try {
     connectToDB()
 
     const createdThread = await Thread.create({
@@ -27,4 +30,10 @@ export async function createThread({text, author, communityId, path}: Params) {
     })
 
     revalidatePath(path)
+} catch (error: any) {
+    throw new Error(`Error creating thread: ${error.message}`)
+}
+
+
+   
 }
