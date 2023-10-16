@@ -1,12 +1,16 @@
-import ThreadCard from "@/components/cards/ThreadCard";
-import Comment from "@/components/forms/Comment";
-import { fetchThreadById } from "@/lib/actions/thread.actions";
-import { fetchUser } from "@/lib/actions/user.actions";
-import { currentUser } from "@clerk/nextjs";
 import { redirect } from "next/navigation"
+import { currentUser } from "@clerk/nextjs";
 
-const Page = async ({ params }: { params: { id: string } }) => {
-    if(!params.id) return null;
+import Comment from "@/components/forms/Comment";
+import ThreadCard from "@/components/cards/ThreadCard";
+
+import { fetchUser } from "@/lib/actions/user.actions";
+import { fetchThreadById } from "@/lib/actions/thread.actions";
+
+export const revalidate = 0
+
+async function page({ params }: { params: { id: string } }) {
+    if (!params.id) return null;
 
     const user = await currentUser()
     if(!user) return null
@@ -45,4 +49,4 @@ return (
   
 };
 
-export default Page;
+export default page;
