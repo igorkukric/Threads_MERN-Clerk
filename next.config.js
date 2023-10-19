@@ -4,7 +4,7 @@ const nextConfig = {
     serverActions: true,
     serverComponentsExternalPackages: ["mongoose"],
   },
-  eslint: {
+  typescript: {
     ignoreDuringBuilds: true,
   },
   images: {
