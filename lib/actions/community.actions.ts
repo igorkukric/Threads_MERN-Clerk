@@ -14,16 +14,16 @@ export async function createCommunity(
   username: string,
   image: string,
   bio: string,
-  createdById: string // Change the parameter name to reflect it's an id
+  createdById: string 
 ) {
   try {
     connectToDB();
 
-    // Find the user with the provided unique id
+    
     const user = await User.findOne({ id: createdById });
 
     if (!user) {
-      throw new Error("User not found"); // Handle the case if the user with the id is not found
+      throw new Error("User not found"); 
     }
 
     const newCommunity = new Community({
@@ -64,7 +64,7 @@ export async function fetchCommunityDetails(id: string) {
 
     return communityDetails;
   } catch (error) {
-    // Handle any errors
+   
     console.error("Error fetching community details:", error);
     throw error;
   }
@@ -222,13 +222,13 @@ export async function removeUserFromCommunity(
       throw new Error("Community not found");
     }
 
-    // Remove the user's _id from the members array in the community
+    
     await Community.updateOne(
       { _id: communityIdObject._id },
       { $pull: { members: userIdObject._id } }
     );
 
-    // Remove the community's _id from the communities array in the user
+   
     await User.updateOne(
       { _id: userIdObject._id },
       { $pull: { communities: communityIdObject._id } }
@@ -236,7 +236,7 @@ export async function removeUserFromCommunity(
 
     return { success: true };
   } catch (error) {
-    // Handle any errors
+   
     console.error("Error removing user from community:", error);
     throw error;
   }
